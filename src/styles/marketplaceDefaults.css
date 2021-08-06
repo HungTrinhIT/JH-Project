@@ -17,9 +17,9 @@
 :root {
   /* ================ Colors ================ */
 
-  --marketplaceColor: #c0392b;
-  --marketplaceColorLight: #ff4c38;
-  --marketplaceColorDark: #8c291e;
+  --marketplaceColor: #2ad25f;
+  --marketplaceColorLight: #39a10c;
+  --marketplaceColorDark: #287209;
 
   /* Used with inline CSS SVGs */
   --marketplaceColorEncoded: %23c0392b;
@@ -117,7 +117,7 @@
   /* ================ LocationAutocompleteInput bottom attribution padding ================ */
 
   /* Google Maps needs 72px bottom padding to accommodate logo, Mapbox doesn't have one */
-  --locationAutocompleteBottomPadding: 8px;
+  --locationAutocompleteBottomPadding: 72px;
 
   --LocationAutocompleteInput_inputHeight: 50px;
   --LocationAutocompleteInput_sidePaddingDesktop: 36px;
