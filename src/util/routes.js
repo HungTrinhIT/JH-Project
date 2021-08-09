@@ -71,6 +71,7 @@ export const createResourceLocatorString = (
   const searchQuery = stringify(searchParams);
   const includeSearchQuery = searchQuery.length > 0 ? `?${searchQuery}` : '';
   const path = pathByRouteName(routeName, routes, pathParams);
+
   return `${path}${includeSearchQuery}${hash}`;
 };
 

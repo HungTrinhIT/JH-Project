@@ -14,6 +14,7 @@ import {
   SearchFiltersPrimary,
   SearchFiltersSecondary,
   SortBy,
+  Button,
 } from '../../components';
 
 import FilterComponent from './FilterComponent';
@@ -168,6 +169,8 @@ class MainPanel extends Component {
       showAsModalMaxWidth,
       filterConfig,
       sortConfig,
+      isMapOpen,
+      onMapOpen,
     } = this.props;
 
     const primaryFilters = filterConfig.filter(f => f.group === 'primary');
@@ -229,6 +232,9 @@ class MainPanel extends Component {
 
     return (
       <div className={classes}>
+        <div style={{ display: 'inline', margin: '16px 0px' }}>
+          <Button onClick={onMapOpen}>{!isMapOpen ? 'Open map' : 'Hidden map'}</Button>
+        </div>
         <SearchFiltersPrimary
           className={css.searchFiltersPrimary}
           sortByComponent={sortBy('desktop')}
@@ -285,30 +291,32 @@ class MainPanel extends Component {
           })}
         </SearchFiltersMobile>
         {isSecondaryFiltersOpen ? (
-          <div className={classNames(css.searchFiltersPanel)}>
-            <SearchFiltersSecondary
-              urlQueryParams={urlQueryParams}
-              listingsAreLoaded={listingsAreLoaded}
-              applyFilters={this.applyFilters}
-              cancelFilters={this.cancelFilters}
-              resetAll={this.resetAll}
-              onClosePanel={() => this.setState({ isSecondaryFiltersOpen: false })}
-            >
-              {secondaryFilters.map(config => {
-                return (
-                  <FilterComponent
-                    key={`SearchFiltersSecondary.${config.id}`}
-                    idPrefix="SearchFiltersSecondary"
-                    filterConfig={config}
-                    urlQueryParams={urlQueryParams}
-                    initialValues={this.initialValues}
-                    getHandleChangedValueFn={this.getHandleChangedValueFn}
-                    showAsPopup={false}
-                  />
-                );
-              })}
-            </SearchFiltersSecondary>
-          </div>
+          <>
+            <div className={classNames(css.searchFiltersPanel)}>
+              <SearchFiltersSecondary
+                urlQueryParams={urlQueryParams}
+                listingsAreLoaded={listingsAreLoaded}
+                applyFilters={this.applyFilters}
+                cancelFilters={this.cancelFilters}
+                resetAll={this.resetAll}
+                onClosePanel={() => this.setState({ isSecondaryFiltersOpen: false })}
+              >
+                {secondaryFilters.map(config => {
+                  return (
+                    <FilterComponent
+                      key={`SearchFiltersSecondary.${config.id}`}
+                      idPrefix="SearchFiltersSecondary"
+                      filterConfig={config}
+                      urlQueryParams={urlQueryParams}
+                      initialValues={this.initialValues}
+                      getHandleChangedValueFn={this.getHandleChangedValueFn}
+                      showAsPopup={false}
+                    />
+                  );
+                })}
+              </SearchFiltersSecondary>
+            </div>
+          </>
         ) : (
           <div
             className={classNames(css.listings, {

@@ -14,7 +14,7 @@ import { parse, stringify } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { getListingsById } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
-import { SearchMap, ModalInMobile, Page } from '../../components';
+import { SearchMap, ModalInMobile, Page, Button } from '../../components';
 import { TopbarContainer } from '../../containers';
 
 import { searchMapListings, setActiveListing } from './SearchPage.duck';
@@ -26,6 +26,8 @@ import {
 } from './SearchPage.helpers';
 import MainPanel from './MainPanel';
 import css from './SearchPage.module.css';
+import { Modal } from '../../examples';
+import { ModalWithPortal } from '../../components/Modal/Modal.example';
 
 const MODAL_BREAKPOINT = 768; // Search is in modal on mobile layout
 const SEARCH_WITH_MAP_DEBOUNCE = 300; // Little bit of debounce before search is initiated.
@@ -37,13 +39,14 @@ export class SearchPageComponent extends Component {
     this.state = {
       isSearchMapOpenOnMobile: props.tab === 'map',
       isMobileModalOpen: false,
+      isDesktopModalOpen: false,
     };
 
     this.searchMapListingsInProgress = false;
-
     this.onMapMoveEnd = debounce(this.onMapMoveEnd.bind(this), SEARCH_WITH_MAP_DEBOUNCE);
     this.onOpenMobileModal = this.onOpenMobileModal.bind(this);
     this.onCloseMobileModal = this.onCloseMobileModal.bind(this);
+    this.onMapOpen = this.onMapOpen.bind(this);
   }
 
   // Callback to determine if new search is needed
@@ -98,7 +101,11 @@ export class SearchPageComponent extends Component {
   onCloseMobileModal() {
     this.setState({ isMobileModalOpen: false });
   }
-
+  onMapOpen() {
+    this.setState({
+      isDesktopModalOpen: !this.state.isDesktopModalOpen,
+    });
+  }
   render() {
     const {
       intl,
@@ -148,7 +155,7 @@ export class SearchPageComponent extends Component {
 
     const { address, bounds, origin } = searchInURL || {};
     const { title, description, schema } = createSearchResultSchema(listings, address, intl);
-
+    const { isDesktopModalOpen } = this.state;
     // Set topbar class based on if a modal is open in
     // a child component
     const topbarClasses = this.state.isMobileModalOpen
@@ -169,6 +176,7 @@ export class SearchPageComponent extends Component {
           currentPage="SearchPage"
           currentSearchParams={urlQueryParams}
         />
+
         <div className={css.container}>
           <MainPanel
             urlQueryParams={validQueryParams}
@@ -185,7 +193,10 @@ export class SearchPageComponent extends Component {
             searchParamsForPagination={parse(location.search)}
             showAsModalMaxWidth={MODAL_BREAKPOINT}
             history={history}
+            onMapOpen={this.onMapOpen}
+            isMapOpen={isDesktopModalOpen}
           />
+
           <ModalInMobile
             className={css.mapPanel}
             id="SearchPage.map"
@@ -195,7 +206,7 @@ export class SearchPageComponent extends Component {
             onManageDisableScrolling={onManageDisableScrolling}
           >
             <div className={css.mapWrapper}>
-              {shouldShowSearchMap ? (
+              {isDesktopModalOpen && shouldShowSearchMap ? (
                 <SearchMap
                   reusableContainerClassName={css.map}
                   activeListingId={activeListingId}

@@ -9,10 +9,10 @@ const { LatLng, LatLngBounds } = sdkTypes;
 // `predictionPlace` (util.types.place) properties.
 const defaultLocations = [
   {
-    id: 'default-hochiminh',
+    id: 'default-auckland',
     predictionPlace: {
-      address: 'Ho Chi Minh, Viet Nam',
-      bounds: new LatLngBounds(new LatLng(60.29783, 25.25448), new LatLng(59.92248, 24.78287)),
+      address: 'Auckland, New Zealand',
+      bounds: new LatLngBounds(new LatLng(-36.545, 175.298), new LatLng(-37.047, 174.498)),
     },
   },
   {

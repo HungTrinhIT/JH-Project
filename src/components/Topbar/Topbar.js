@@ -96,6 +96,7 @@ class TopbarComponent extends Component {
   }
 
   handleSubmit(values) {
+    console.log('submit value:', values);
     const { currentSearchParams } = this.props;
     const { search, selectedPlace } = values.location;
     const { history } = this.props;
