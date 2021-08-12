@@ -109,8 +109,8 @@ export const filters = [
       // to make filter customizations a bit easier.
       options: [
         {
-          key: 'towels',
-          label: 'Towels',
+          key: 'terrace',
+          label: 'Terrace',
         },
         {
           key: 'bathroom',
@@ -121,25 +121,33 @@ export const filters = [
           label: 'Swimming pool',
         },
         {
-          key: 'own_drinks',
-          label: 'Own drinks allowed',
-        },
-        {
           key: 'jacuzzi',
           label: 'Jacuzzi',
         },
-        {
-          key: 'audiovisual_entertainment',
-          label: 'Audiovisual entertainment',
-        },
+
         {
           key: 'barbeque',
           label: 'Barbeque',
         },
         {
-          key: 'own_food_allowed',
-          label: 'Own food allowed',
+          key: 'fireplace',
+          label: 'Fireplace',
         },
+      ],
+    },
+  },
+  {
+    id: 'view',
+    label: 'View',
+    type: 'SelectSingleFilter',
+    group: 'secondary',
+    queryParamNames: ['pub_view'],
+    config: {
+      options: [
+        { key: 'sea', label: 'Sea view' },
+        { key: 'lake', label: 'Lake view' },
+        { key: 'forest', label: 'Forest view' },
+        { key: 'garden', label: 'Garden view' },
       ],
     },
   },

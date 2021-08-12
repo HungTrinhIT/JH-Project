@@ -189,3 +189,4 @@ BookingDateRangeFilterComponent.propTypes = {
 const BookingDateRangeFilter = injectIntl(BookingDateRangeFilterComponent);
 
 export default BookingDateRangeFilter;
+

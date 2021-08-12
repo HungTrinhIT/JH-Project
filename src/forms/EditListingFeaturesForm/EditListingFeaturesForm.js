@@ -7,7 +7,7 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { propTypes } from '../../util/types';
 import config from '../../config';
-import { Button, FieldCheckboxGroup, Form } from '../../components';
+import { Button, FieldCheckboxGroup, Form, FieldSelect } from '../../components';
 
 import css from './EditListingFeaturesForm.module.css';
 
@@ -50,13 +50,22 @@ const EditListingFeaturesFormComponent = props => (
       ) : null;
 
       const options = findOptionsForSelectFilter('amenities', filterConfig);
+      const viewKey = 'view';
+      const viewOptions = findOptionsForSelectFilter(viewKey, filterConfig);
+      console.log(viewOptions);
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessage}
           {errorMessageShowListing}
 
           <FieldCheckboxGroup className={css.features} id={name} name={name} options={options} />
-
+          <FieldSelect className={css.features} name={viewKey} id={viewKey} label={'Location type'}>
+            {viewOptions.map(o => (
+              <option key={o.key} value={o.key}>
+                {o.label}
+              </option>
+            ))}
+          </FieldSelect>
           <Button
             className={css.submitButton}
             type="submit"

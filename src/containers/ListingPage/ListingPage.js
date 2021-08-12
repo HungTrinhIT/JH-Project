@@ -364,7 +364,7 @@ export class ListingPageComponent extends Component {
       { id: 'ListingPage.schemaTitle' },
       { title, price: formattedPrice, siteTitle }
     );
-
+      
     const hostLink = (
       <NamedLink
         className={css.authorNameLink}
