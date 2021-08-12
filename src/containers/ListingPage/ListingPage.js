@@ -40,7 +40,7 @@ import {
   BookingPanel,
 } from '../../components';
 import { TopbarContainer, NotFoundPage } from '../../containers';
-
+import SectionViewMaybe from './SectionViewMaybe';
 import { sendEnquiry, fetchTransactionLineItems, setInitialValues } from './ListingPage.duck';
 import SectionImages from './SectionImages';
 import SectionAvatar from './SectionAvatar';
@@ -364,7 +364,7 @@ export class ListingPageComponent extends Component {
       { id: 'ListingPage.schemaTitle' },
       { title, price: formattedPrice, siteTitle }
     );
-      
+
     const hostLink = (
       <NamedLink
         className={css.authorNameLink}
@@ -385,6 +385,11 @@ export class ListingPageComponent extends Component {
           <span className={css.separator}>•</span>
         </span>
       ) : null;
+
+    //Views
+    console.log(filterConfig);
+    const viewKey = 'view';
+    const viewOptions = findOptionsForSelectFilter(viewKey, filterConfig);
 
     return (
       <Page
@@ -437,6 +442,8 @@ export class ListingPageComponent extends Component {
                   <SectionDescriptionMaybe description={description} />
                   <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />
                   <SectionRulesMaybe publicData={publicData} />
+                  <SectionViewMaybe options={viewOptions} publicData={publicData} />
+
                   <SectionMapMaybe
                     geolocation={geolocation}
                     publicData={publicData}
